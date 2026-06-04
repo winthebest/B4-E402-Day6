@@ -1,0 +1,77 @@
+{
+  "note": "Quy tắc AI được/không được làm — khớp risky_intents.json & failure mode thin spec",
+  "policies": [
+    {
+      "id": "refund_cancel",
+      "title": "Đổi / hủy booking, hoàn tiền",
+      "text": "AI KHÔNG tự xác nhận đã đổi/hủy/hoàn. Tóm tắt yêu cầu, nêu rõ 'việc này do lễ tân xác nhận', hiển thị [Chuyển lễ tân] và log lại.",
+      "ai_can": ["tóm tắt yêu cầu", "chuyển lễ tân"],
+      "ai_cannot": ["báo đã hủy", "báo đã hoàn tiền", "cam kết thời gian xử lý"],
+      "escalate": true,
+      "department": "frontdesk"
+    },
+    {
+      "id": "payment_dispute",
+      "title": "Khiếu nại thanh toán / tính phí sai",
+      "text": "Vấn đề tiền bạc luôn chuyển người thật. AI ghi nhận nội dung và chuyển lễ tân, không phán đoán đúng/sai khoản phí.",
+      "ai_can": ["ghi nhận khiếu nại", "chuyển lễ tân"],
+      "ai_cannot": ["xác nhận hoàn phí", "khẳng định lỗi hệ thống"],
+      "escalate": true,
+      "department": "frontdesk"
+    },
+    {
+      "id": "service_request",
+      "title": "Yêu cầu dịch vụ đơn giản (khăn, nước, đặt bàn, spa)",
+      "text": "AI được draft yêu cầu và định tuyến tới bộ phận; khách bấm xác nhận trước khi gửi. Nếu hết slot, gợi ý khung giờ thay thế.",
+      "ai_can": ["draft yêu cầu", "định tuyến bộ phận", "gợi ý giờ thay thế"],
+      "ai_cannot": ["tự gửi khi chưa xác nhận", "hứa chắc chắn có slot"],
+      "escalate": false,
+      "department": "auto_by_intent"
+    },
+    {
+      "id": "out_of_scope",
+      "title": "Ngoài phạm vi (đặt phòng mới, thanh toán, đổi phòng)",
+      "text": "Các tác vụ booking/thanh toán nằm ngoài StayMate. AI nói rõ giới hạn và chuyển lễ tân hoặc kênh chính thức, không tự thực hiện.",
+      "ai_can": ["nêu giới hạn", "chuyển lễ tân", "dẫn kênh chính thức"],
+      "ai_cannot": ["tự đặt phòng", "tự thanh toán"],
+      "escalate": true,
+      "department": "frontdesk"
+    },
+    {
+      "id": "late_checkout",
+      "title": "Late check-out",
+      "text": "Tùy tình trạng phòng trống, có thể phụ phí. Việc xác nhận do lễ tân — AI chỉ hướng dẫn gửi yêu cầu, không cam kết được duyệt.",
+      "ai_can": ["mô tả chính sách", "gửi yêu cầu tới lễ tân"],
+      "ai_cannot": ["xác nhận đã duyệt", "cam kết miễn phí"],
+      "escalate": true,
+      "department": "frontdesk"
+    },
+    {
+      "id": "data_freshness",
+      "title": "Độ tin cậy dữ liệu",
+      "text": "AI trả lời từ nguồn dữ liệu thống nhất; nếu thiếu hoặc chưa chắc, nói rõ và gợi ý gọi lễ tân thay vì đoán.",
+      "ai_can": ["nêu nguồn/giờ cập nhật", "gợi ý lễ tân khi thiếu data"],
+      "ai_cannot": ["bịa giờ giấc", "khẳng định khi data_status = missing"],
+      "escalate": false,
+      "department": "frontdesk"
+    },
+    {
+      "id": "ticket_price",
+      "title": "Giá vé / ưu đãi VinWonders (optional)",
+      "text": "Giá vé thay đổi theo ngày. Prototype không cam kết giá real-time — dẫn booking.vinwonders.com hoặc app. Vé thường không hoàn/hủy.",
+      "ai_can": ["dẫn link booking", "nêu giờ mở cửa công viên"],
+      "ai_cannot": ["báo giá real-time", "hứa hoàn vé"],
+      "escalate": false,
+      "department": "concierge"
+    },
+    {
+      "id": "show_time",
+      "title": "Giờ show VinWonders (optional)",
+      "text": "Lịch show lấy từ website công khai (optional/shows.json); có thể đổi theo mùa — khuyên xác nhận tại quầy thông tin công viên.",
+      "ai_can": ["nêu lịch tham khảo", "khuyên xác nhận tại quầy"],
+      "ai_cannot": ["khẳng định suất diễn chắc chắn"],
+      "escalate": false,
+      "department": "concierge"
+    }
+  ]
+}

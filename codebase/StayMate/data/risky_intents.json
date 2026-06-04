@@ -1,0 +1,27 @@
+{
+  "description": "StayMate — AI không tự xác nhận, chuyển lễ tân",
+  "intents": [
+    "doi_phong",
+    "huy_phong",
+    "huy_booking",
+    "hoan_tien",
+    "refund",
+    "thanh_toan",
+    "payment_dispute",
+    "khieu_nai",
+    "complaint",
+    "charge_wrong",
+    "cancel_reservation"
+  ],
+  "keywords_vi": [
+    "đổi phòng",
+    "hủy phòng",
+    "hủy đặt",
+    "hoàn tiền",
+    "refund",
+    "khiếu nại",
+    "tính phí sai",
+    "thanh toán",
+    "hủy booking"
+  ]
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StayMate AI — In-Room Concierge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="phone">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">SM</span>
+        <div>
+          <h1>StayMate AI</h1>
+          <p class="sub" id="venueName">Vinpearl Resort &amp; Spa Phú Quốc</p>
+        </div>
+      </div>
+      <div class="header-chips">
+        <div class="ai-chip" id="aiChip" title="Trạng thái Gemini">AI …</div>
+        <div class="room-chip" id="roomChip" title="Số phòng nhận từ QR">
+          <span class="dot"></span><span id="roomLabel">—</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="chat" id="chat" aria-live="polite"></main>
+
+    <div class="quickbar" id="quickbar"></div>
+
+    <form class="composer" id="composer" autocomplete="off">
+      <input id="input" type="text" placeholder="Nhập câu hỏi… (vd: buffet sáng mấy giờ?)" />
+      <button type="submit" aria-label="Gửi">➤</button>
+    </form>
+  </div>
+
+  <script src="concierge.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

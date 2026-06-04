@@ -1,0 +1,11 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# secrets
+.env
+
+# crawl output (optional: bỏ dòng này nếu muốn commit web_docs.jsonl)
+# web_docs.jsonl
