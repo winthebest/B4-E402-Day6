@@ -74,3 +74,6 @@ Một tính năng AI không chỉ có đường thuận. Nhóm cần thiết k�
 ## 8. Phân công
 
 Cuối cùng, ghi rõ ai phụ trách phần nào — người viết và kiểm thử prompt, người dựng giao diện, người giữ repo, người viết kịch bản demo, và người lo phần bằng chứng. Mỗi thành viên cần có một phần đủ rõ để tự mình giải thích được khi demo.
+
+
+**Võ Tấn Trung - 2A202600642**: Lấy và làm sạch dữ liệu, đảm bảo dữ liệu thật và dùng được.
