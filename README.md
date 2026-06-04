@@ -1,103 +1,69 @@
-# Batch 02 · Day 06 — AI Product Hackathon
+# Day6-E402-A10
 
-> SPEC → Prototype → Demo. Hôm nay không có bài giảng mới — hôm nay chứng minh: SPEC là giả thuyết, prototype là bằng chứng, demo là thuyết phục.
+**Batch 02 · Day 06 — AI Product Hackathon · VinUni A20 · 2026**
 
 ---
 
-## Cách nộp bài
+## Thành viên nhóm
 
-**Đại diện nhóm tạo MỘT repo nhóm**, đặt tên:
+| Mã học viên | Họ và tên |
+|-------------|-----------|
+| 2A202600781 | Phan Võ Trọng Tiển |
+| 2A202600675 | Nguyễn Bá Thành |
+| 2A202600642 | Võ Tấn Trung |
+| 2A202600609 | Đào Văn Tuân |
+
+Mỗi thành viên cần **ít nhất một commit thực chất** trong repo.
+
+---
+
+## Mô tả sản phẩm
+
+**StayMate AI** — trợ lý concierge **trong phòng** cho khách **Vinpearl Resort & Spa Phú Quốc** (track **Travel & Hospitality**).
+
+Khách quét **mã QR trong phòng** (Web, không cài app) → hệ thống tự nhận **số phòng** và **loại khách** (gia đình / cặp đôi / có trẻ nhỏ), rồi chat với StayMate để:
+
+- Hỏi nhanh giờ tiện ích, nhà hàng, dịch vụ resort (dữ liệu grounding từ JSON resort, không bịa).
+- Nhận **gợi ý cá nhân hóa** theo buổi trong ngày (Gemini).
+- **Đặt spa / bàn tối / room service** — AI soạn câu trả lời, khách **xác nhận** trước khi gửi yêu cầu.
+
+Kiến trúc **AI-first + guardrail**: `POST /api/chat` gọi **Gemini** trước; server kiểm tra sau — slot **đầy** thì gợi ý giờ khác, intent **hoàn tiền / đổi phòng / khiếu nại** thì **chuyển lễ tân** (Augmentation, không tự quyết thay khách). Demo đủ **4 paths**: gợi ý thuận, hỏi lại khi mơ hồ, spa 18h full, escalate rủi ro.
+
+Chi tiết SPEC, ảnh demo, slide: [`spec/spec.md`](spec/spec.md) · [`spec/slide.pdf`](spec/slide.pdf) · [`spec/evidence/`](spec/evidence/)
+
+---
+
+## Cấu trúc repo
 
 ```
-Day06-Lop-NhomXX
-```
-
-Ví dụ: `Day06-C401-Nhom03`
-
-- **README của repo nhóm phải liệt kê đủ thành viên** — mỗi người gồm **mã học viên + họ và tên**.
-- Đại diện nhóm nộp **link repo** lên LMS. **Hạn nộp: 23:59 ngày 04/06/2026.**
-- Mỗi thành viên cần **ít nhất một commit thực chất** trong repo (không commit = mất điểm cá nhân).
-
-### Cấu trúc repo nhóm
-
-```
-Day06-Lop-NhomXX/
-├── README.md        ← Danh sách thành viên (mã HV + họ tên) + mô tả ngắn sản phẩm
-├── spec/            ← SPEC sản phẩm (xem hướng dẫn trong spec/)
-└── codebase/        ← Toàn bộ code prototype (xem hướng dẫn trong codebase/)
+Day6-E402-A10/
+├── README.md              ← File này
+├── spec/                  ← SPEC, evidence, slide
+└── codebase/StayMate/     ← Prototype (Node + Web + data)
 ```
 
 ---
 
-## Lịch ngày 06 — 04/06/2026
+## Chạy prototype (tóm tắt)
 
-| Giờ | Mốc | Cần đạt |
-|-----|-----|---------|
-| Sáng | Build | Bắt đầu từ SPEC nhẹ đã làm ở Day 5 |
-| **11:00** | Checkpoint 1 | **Show được ít nhất mockup/prototype chạy được** |
-| **13:00** | Checkpoint 2 | **Lắp được AI vào ít nhất 1 flow** |
-| **15:30** | Checkpoint 3 | **Chuẩn bị xong tài liệu demo + slide** |
-| **16:00** | Demo round | Trình bày trong zone, 10 phút/nhóm |
+```bash
+cd codebase/StayMate
+copy .env.example .env
+# Điền GEMINI_API_KEY
 
----
+node server/server.js
+```
 
-## Tracks
-
-Mỗi nhóm chọn một lĩnh vực, lấy một app thật trong đó để soi và cải tiến:
-
-| Track | App thật gợi ý |
-|-------|----------------|
-| **Learning OS** (Vin AI Thực Chiến) | LMS khóa học, Discord lớp |
-| **Travel & Hospitality** | Vinpearl, Sun World / SunGroup |
-| **Food & Local Delivery** | ShopeeFood, GrabFood, BeFood, Xanh SM Ngon |
-| **Personal Finance** | MoMo, ZaloPay, app ngân hàng |
-| **Healthcare** | Vinmec, Long Châu, Pharmacity |
-
-> Các nhóm **cùng track** ngồi **cùng một zone** khi demo.
+Mở `http://localhost:8000/web/?qr=QR1502` — hướng dẫn đầy đủ: [`codebase/StayMate/README.md`](codebase/StayMate/README.md)
 
 ---
 
-## Kỳ vọng mỗi demo
+## Tài liệu
 
-1. **Product Canvas** — giới thiệu ý tưởng và nỗi đau (painpoint) của người dùng.
-2. **Demo full luồng end-to-end** — show cả happy case lẫn error case.
-3. **AI chạy thật trong ít nhất 1 flow** — không chỉ mockup tĩnh.
+| File / thư mục | Nội dung |
+|----------------|----------|
+| [`spec/spec.md`](spec/spec.md) | SPEC sản phẩm (bằng chứng, canvas, kiểm thử, phân công) |
+| [`codebase/StayMate/`](codebase/StayMate/) | Mã nguồn prototype |
+| [`hackathon-rules.md`](hackathon-rules.md) | Luật chơi & chấm điểm |
 
----
-
-## Demo round (16:00)
-
-- Mỗi nhóm **10 phút** (≈ 5 phút trình bày + 5 phút Q&A).
-- Các nhóm khác **phản biện, đặt câu hỏi**.
-- **Đánh giá chéo qua form**: thành viên các nhóm khác chấm điểm.
-- **Tổng kết**: nhóm điểm cao nhất mỗi zone được **bonus**; còn thời gian thì các nhóm điểm cao **present trước cả lớp**; giảng viên đánh giá.
-
-Chi tiết luật chơi + cách chấm: [`hackathon-rules.md`](hackathon-rules.md)
-
----
-
-## Chấm điểm (Day 5 + Day 6 = 100 điểm)
-
-| Hạng mục | Điểm |
-|----------|------|
-| SPEC | 25 |
-| Prototype | 15 |
-| Demo Day | 25 |
-| Bài tập UX (Day 5) | 10 |
-| Phản ánh cá nhân (reflection) | 25 |
-
-**Điều kiện chặn:** prototype không có lời gọi AI thật → giới hạn 4/10 · không có commit → mất điểm cá nhân · không giải thích được phần mình khi bị hỏi → 0 điểm demo cá nhân.
-
----
-
-## Tài liệu trong repo này
-
-| Folder / file | Nội dung |
-|---------------|----------|
-| [`hackathon-rules.md`](hackathon-rules.md) | Luật chơi, lịch, demo round, cách chấm |
-| [`spec/`](spec/) | Hướng dẫn viết SPEC sản phẩm (nối tiếp SPEC nhẹ Day 5) |
-| [`codebase/`](codebase/) | Yêu cầu nộp code prototype |
-
----
-
-*Batch 02 · Ngày 06 — VinUni A20 · AI Thực Chiến · 2026*
+**Hạn nộp LMS:** 23:59 ngày **04/06/2026**
