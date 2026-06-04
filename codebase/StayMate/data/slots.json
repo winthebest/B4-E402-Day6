@@ -1,0 +1,19 @@
+{
+  "note": "MOCK cho demo failure path — không phải tồn kho thật. Cập nhật khi có API resort.",
+  "slots": {
+    "spa_resort_60": {
+      "16:30": "available",
+      "18:00": "full",
+      "19:30": "available"
+    },
+    "restaurant_dinner_resort": {
+      "18:00": "full",
+      "19:00": "available",
+      "20:00": "available"
+    },
+    "deep_sea_dining": {
+      "18:00": "available",
+      "19:00": "full"
+    }
+  }
+}

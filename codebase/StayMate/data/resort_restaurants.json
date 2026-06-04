@@ -1,0 +1,73 @@
+{
+  "venue_id": "vinpearl_resort_pq",
+  "note": "Giờ từ trang /foods — Seashell & Nemo có buffet sáng 6:00–10:30",
+  "detail_url": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods",
+  "source": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods",
+  "updated_at": "2026-06-04",
+  "restaurants": [
+    {
+      "id": "seashell",
+      "name": "Nhà hàng Seashell",
+      "category": "dining",
+      "hours": "Sáng: 6:00 – 10:30 Trưa: 12:00 – 14:00 Tối: 18:00 – 22:00",
+      "open_breakfast": "06:00",
+      "close_breakfast": "10:30",
+      "buffet": true,
+      "phone": "(+84) 297 3550 550",
+      "data_status": "verified"
+    },
+    {
+      "id": "the_beach_bistro",
+      "name": "The Beach Bistro",
+      "category": "dining",
+      "hours": "12:00AM - 10:00PM",
+      "open": "00:00",
+      "close": "22:00",
+      "note": "Hải sản view biển — gợi ý đặt bàn tối demo",
+      "phone": "(+84) 297 3550 550",
+      "data_status": "verified"
+    },
+    {
+      "id": "pearl_lounge",
+      "name": "Pearl Lounge Café",
+      "category": "dining",
+      "hours": "07:00AM – 11:00PM",
+      "open": "07:00",
+      "close": "23:00",
+      "phone": "(+84) 297 3550 550",
+      "data_status": "verified"
+    },
+    {
+      "id": "sim_bar",
+      "name": "Sim Bar",
+      "category": "bar",
+      "hours": "09:00AM – 11:00PM",
+      "open": "09:00",
+      "close": "23:00",
+      "phone": "(+84) 297 3550 550",
+      "data_status": "verified"
+    },
+    {
+      "id": "seaview_cafe",
+      "name": "Seaview Cafe",
+      "category": "dining",
+      "hours": "09:00AM – 10:00PM",
+      "open": "09:00",
+      "close": "22:00",
+      "phone": "(+84) 297 3550 550",
+      "data_status": "verified"
+    },
+    {
+      "id": "nemo",
+      "name": "Nhà hàng Nemo",
+      "category": "dining",
+      "hours": "Sáng: 6:00 – 10:30 Trưa: 12:00 – 14:00 Tối: 18:00 – 22:00",
+      "open_breakfast": "06:00",
+      "close_breakfast": "10:30",
+      "buffet": true,
+      "phone": "(+84) 297 3550 550",
+      "data_status": "verified"
+    }
+  ],
+  "buffet_breakfast_primary": "seashell"
+}
