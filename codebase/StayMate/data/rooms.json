@@ -1,0 +1,23 @@
+{
+  "note": "MOCK QR → phòng cho demo StayMate. Không từ crawl.",
+  "rooms": {
+    "QR1208": {
+      "room": "1208",
+      "type": "Deluxe Ocean View",
+      "guest_type": "family",
+      "building": "A"
+    },
+    "QR0905": {
+      "room": "0905",
+      "type": "Suite",
+      "guest_type": "couple",
+      "building": "B"
+    },
+    "QR1502": {
+      "room": "1502",
+      "type": "Deluxe",
+      "guest_type": "family_with_kids",
+      "building": "A"
+    }
+  }
+}

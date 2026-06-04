@@ -1,0 +1,17 @@
+{
+  "product": "StayMate AI",
+  "venue": "vinpearl_resort_pq",
+  "locale": "vi",
+  "core_files": {
+    "amenities_resort": "amenities_resort.json — FAQ in-room",
+    "resort_contact": "resort_contact.json — SĐT, email từ crawl",
+    "resort_restaurants": "resort_restaurants.json — nhà hàng resort",
+    "rooms": "rooms.json — MOCK QR → phòng",
+    "slots": "slots.json — MOCK slot spa/nhà hàng",
+    "departments": "departments.json — định tuyến yêu cầu",
+    "risky_intents": "risky_intents.json — escalate lễ tân",
+    "policies": "policies.json — giới hạn AI",
+    "DATA_GAPS": "DATA_GAPS.md"
+  },
+  "optional_context": "optional/ — dữ liệu crawl VinWonders (không bắt buộc demo)"
+}

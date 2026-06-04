@@ -10,16 +10,18 @@ Viết SPEC vào `spec/spec.md`, có thể kèm slide demo (`spec/demo-slides.pd
 
 ## 1. Bằng chứng
 
-Trước hết, nỗi đau mà nhóm muốn giải đến từ đâu? Phần này cần dựa trên quan sát thật chứ không phải phỏng đoán. Nhóm nên có:
+nhóm tự dùng app/workflow lưu trú thật và ghi lại điểm gãy.
 
-- **Trải nghiệm trực tiếp** — chính nhóm dùng thử app hoặc quy trình đó và ghi lại những chỗ thấy vướng.
-- **Ít nhất một nguồn từ bên ngoài nhóm** — đánh giá công khai trên App Store hoặc Google Play, một buổi phỏng vấn ngắn với người dùng thật, bình luận trên diễn đàn hay mạng xã hội, hoặc cách những sản phẩm khác đang xử lý cùng vấn đề.
-
-Mỗi nhận định nên đi kèm trích dẫn, ảnh chụp màn hình hoặc một quan sát cụ thể. Nếu có ý nào nhóm chưa tìm được nguồn từ bên ngoài, hãy ghi rõ đó là giả định thay vì trình bày như một sự thật.
+| Evidence ID | Observation | Screenshot/link | Path liên quan | Điều học được |
+|---|---|---|---|---|
+| **E01** | Khách phản ánh tiêu cực vì không có chatbot hỗ trợ | [noChatbot.jpg](noChatbot.jpg)<br>![E01](noChatbot.jpg) | **Failure (Service Latency / High Friction)** |  |
+| **E02** | Khách gặp vấn đề thông qua app nhưng lại không có CSKH để liên hệ | [ev2_1.jpg](ev2_1.jpg)<br>![ev2_1](ev2_1.jpg) | **Low-confidence** | Tránh ép khách gọi điện. Để AI trả lời FAQ tiện ích tức thời ngay trong phòng qua QR, giảm tải cho lễ tân. |
+| **E03** | Các dịch vụ/ tiện ích trong resort nằm rải rác nhiều nơi, người ở khó tìm  | [ev3.jpg](ev3.jpg)<br>![ev3](ev3.jpg) | **Failure / Correction** | Gom yêu cầu dịch vụ về một hội thoại. AI draft yêu cầu, chuyển bộ phận phù hợp; khách xác nhận bằng nút bấm. |
+| **E04** |Quy trình đặt thông qua app quá phức tạp, phải chọn từng mục sau đó mới hiển thị ra các thông tin  | Thông qua trải nghiệm/ Kiểm chứng app | **Failure / Correction** | Gom yêu cầu dịch vụ về một hội thoại. AI draft yêu cầu, chuyển bộ phận phù hợp; khách xác nhận bằng nút bấm. |
 
 ## 2. Lát cắt để build
 
-Thay vì cố làm cả sản phẩm, nhóm chọn ra lát cắt nhỏ nhất đủ để chứng minh ý tưởng. Lát cắt này gói gọn trong một câu: một người dùng, một công việc, một quyết định mà AI đưa ra, và một kết quả trả về. Đây mới là phần nhóm thật sự dựng nên và mang đi demo.
+Web App/Zalo Mini App kích hoạt qua mã QR đặt trong phòng hoặc trên thẻ phòng (Zero-Install, không cần đăng nhập app). Khi quét, hệ thống tự nhận diện số phòng + thời điểm hiện tại và mở một hội thoại concierge ngắn (Conversational UI dùng Gemini API). AI trả lời ngay các câu hỏi về tiện ích (giờ buffet, hồ bơi, shuttle, gym, spa) và tiếp nhận yêu cầu dịch vụ đơn giản (xin thêm khăn/nước, đặt bàn nhà hàng, đặt slot spa, xin late check-out) bằng 2–3 nút phản hồi nhanh, thay vì bắt khách gọi điện lễ tân hoặc lục trong app đặt phòng nặng nề.
 
 ## 3. AI Product Canvas
 
@@ -27,14 +29,21 @@ Canvas là một trang giúp sản phẩm không trôi ngược về "một demo
 
 | Ô | Câu hỏi cần trả lời |
 |---|---------------------|
-| **Value** — Giá trị | Sản phẩm dành cho ai, họ đau ở đâu, và AI giải được điều gì mà cách làm hiện tại chưa giải tốt? |
-| **Trust** — Niềm tin | Khi AI trả lời sai, người dùng nhận ra bằng cách nào, và họ sửa lại, hoàn tác hay chuyển sang người thật ra sao? |
-| **Feasibility** — Tính khả thi | Có đáng để build không? Hãy cân nhắc chi phí mỗi lượt gọi, độ trễ, dữ liệu cần có, rủi ro lớn nhất, và ngưỡng mà nhóm sẵn sàng dừng lại. |
-| **Tín hiệu học** | Khi người dùng chỉnh sửa kết quả, dữ liệu đó đi về đâu và giúp sản phẩm khá lên nhờ tín hiệu nào? |
+| **Value** — Giá trị | Khách lưu trú resort phức hợp; đau ở độ trễ lễ tân, thông tin rải rác, đặt dịch vụ rời rạc, app nặng. AI: concierge tức thời qua QR, không cần gọi điện hay tải app. |
+| **Trust** — Niềm tin | Sai/thiếu chắc → hỏi lại bằng nút; hết slot → gợi ý khung khác; đổi/hủy/hoàn tiền/khiếu nại → không tự xác nhận, [Chuyển lễ tân] + tóm tắt cho nhân viên. |
+| **Feasibility** — Tính khả thi | Gemini API + mock tiện ích/slot; prototype 1 ngày. Rủi ro lớn nhất: AI hứa hẹn sai về tiền/chính sách. Ngưỡng dừng: intent rủi ro luôn escalate. |
+| **Tín hiệu học** | Khách bấm escalate hoặc chỉnh gợi ý → ghi vào profile phiên tạm (ưu tiên dịch vụ, không thích spa…) cho gợi ý sau trong cùng lưu trú.|
 
 ## 4. Tăng năng lực hay tự động hóa
 
-Đây là một quyết định sản phẩm, không phải lựa chọn mặc định. Nhóm cần nói rõ: AI chỉ gợi ý và chuẩn bị cho con người (tăng năng lực — augment), hay AI tự hành động trong phạm vi đã định (tự động hóa — automate)? Con người giữ quyền quyết định ở bước nào? Và vì sao nhóm chọn mức đó cho lát cắt này — thường thì câu trả lời nằm ở chỗ sai thì hậu quả nặng đến đâu và có dễ hoàn tác hay không.
+Quyết định: Conditional automation — AI tự xử lý trong case hẹp (FAQ, amenity đơn giản); case mơ hồ/rủi ro chuyển người.
+
+Lý do: FAQ và amenity rủi ro thấp, đáp án rõ → tự xử lý giảm tải lễ tân. Đổi/hủy, hoàn tiền, khiếu nại cần con người. Conditional automation cho vùng an toàn + escalate khi vượt ngưỡng.
+
+| Vai trò con người | Ai | Làm gì |
+|------------------|----|---------|
+| Decider | Khách | Xác nhận yêu cầu do AI draft trước khi gửi |
+| Rescuer | Lễ tân / Nhân viên | Nhận các trường hợp AI escalate khi không chắc chắn, yêu cầu phức tạp hoặc vượt chính sách |
 
 ## 5. Bốn đường đi của trải nghiệm
 

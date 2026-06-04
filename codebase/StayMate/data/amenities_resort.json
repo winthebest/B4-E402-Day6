@@ -1,0 +1,100 @@
+{
+  "note": "StayMate in-room FAQ — crawl + giờ nhà hàng /foods",
+  "venue_id": "vinpearl_resort_pq",
+  "source_crawl": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods",
+  "updated_at": "2026-06-04",
+  "amenities": [
+    {
+      "id": "buffet_breakfast",
+      "name": "Buffet sáng",
+      "category": "dining",
+      "open": "06:00",
+      "close": "10:30",
+      "hours_display": "06:00 – 10:30",
+      "location": "Nhà hàng Seashell (chính); Nemo cùng khung sáng",
+      "note": "Buffet quốc tế — resort_restaurants.json",
+      "data_status": "verified",
+      "source": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods"
+    },
+    {
+      "id": "pool",
+      "name": "Hồ bơi",
+      "category": "pool",
+      "open": "06:00",
+      "close": "21:00",
+      "hours_display": "06:00 – 21:00",
+      "note": "Hồ bơi ngoài trời ~5.000 m². Giờ ước lượng — cần xác nhận lễ tân",
+      "data_status": "needs_verify",
+      "source": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods"
+    },
+    {
+      "id": "private_beach",
+      "name": "Bãi biển riêng",
+      "category": "beach",
+      "open": null,
+      "close": null,
+      "location": "Bãi Dài, Gành Dầu, Phú Quốc",
+      "note": "Bãi biển riêng dài khoảng 3,5 km (Bãi Dài)",
+      "data_status": "partial",
+      "source": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods"
+    },
+    {
+      "id": "shuttle_beach",
+      "name": "Shuttle ra biển / điểm tham quan",
+      "category": "transport",
+      "open": "07:00",
+      "close": "22:00",
+      "frequency": "mỗi 30 phút",
+      "note": "Gần VinWonders. Tần suất ước lượng — cần xác nhận lễ tân",
+      "data_status": "needs_verify",
+      "fill_hint": "E02 — single source of truth từ lễ tân"
+    },
+    {
+      "id": "gym",
+      "name": "Gym / fitness",
+      "category": "fitness",
+      "open": null,
+      "close": null,
+      "data_status": "missing",
+      "fill_hint": "Trang tiện ích hoặc thẻ phòng"
+    },
+    {
+      "id": "spa_resort",
+      "name": "Spa resort",
+      "category": "spa",
+      "open": null,
+      "close": null,
+      "note": "Thả lỏng cơ thể để tận hưởng một liệu trình massage đặc trưng có nguồn gốc từ xứ sở hạnh phúc Bali, sử dụng các sản phẩm chăm sóc thượng hạng với nguyên liệu hoàn toàn từ thiên nhiên, trong những chòi spa trên mặt hồ khoáng đạt, yên bình và tuyệt đối trong lành",
+      "data_status": "partial",
+      "source": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods"
+    },
+    {
+      "id": "kids_club",
+      "name": "Kids club",
+      "category": "kids",
+      "open": null,
+      "close": null,
+      "data_status": "missing"
+    },
+    {
+      "id": "front_desk",
+      "name": "Lễ tân / tổng đài",
+      "category": "service",
+      "phone": "(+84) 2973550550",
+      "email": "Res.vprspq@vinpearl.com",
+      "hotline": "1900 23 23 28",
+      "location": "Bãi Dài, Gành Dầu, Phú Quốc",
+      "note": "Gọi số resort hoặc hotline Vinpearl; việc đổi/hủy → escalate",
+      "data_status": "verified",
+      "source": "https://vinpearl.com/vi/hotels/vinpearl-resort-spa-phu-quoc/foods"
+    },
+    {
+      "id": "late_checkout",
+      "name": "Late check-out",
+      "category": "policy",
+      "note": "Chính sách phụ thuộc phòng trống — AI chỉ mô tả, escalate lễ tân để xác nhận",
+      "data_status": "partial",
+      "fill_hint": "E07 — không cam kết tự động"
+    }
+  ]
+}

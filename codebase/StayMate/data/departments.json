@@ -1,0 +1,24 @@
+{
+  "departments": {
+    "housekeeping": {
+      "handles": ["towel", "water", "amenity", "pillow", "cleaning"],
+      "label": "Buồng phòng"
+    },
+    "fnb": {
+      "handles": ["restaurant", "buffet", "room_service", "dining"],
+      "label": "Ẩm thực / Nhà hàng"
+    },
+    "spa": {
+      "handles": ["spa", "massage"],
+      "label": "Spa"
+    },
+    "concierge": {
+      "handles": ["tour", "ticket", "transport", "shuttle"],
+      "label": "Concierge / Tour"
+    },
+    "frontdesk": {
+      "handles": ["late_checkout", "escalate", "policy", "complaint"],
+      "label": "Lễ tân"
+    }
+  }
+}
