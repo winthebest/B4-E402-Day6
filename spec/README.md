@@ -12,12 +12,12 @@ Viết SPEC vào `spec/spec.md`, có thể kèm slide demo (`spec/demo-slides.pd
 
 nhóm tự dùng app/workflow lưu trú thật và ghi lại điểm gãy.
 
-| Evidence ID | Observation | Screenshot/link | Path liên quan | Điều học được |
-|---|---|---|---|---|
-| **E01** | Khách phản ánh tiêu cực vì không có chatbot hỗ trợ | [noChatbot.jpg](noChatbot.jpg)<br>![E01](noChatbot.jpg) | **Failure (Service Latency / High Friction)** |  |
-| **E02** | Khách gặp vấn đề thông qua app nhưng lại không có CSKH để liên hệ | [ev2_1.jpg](ev2_1.jpg)<br>![ev2_1](ev2_1.jpg) | **Low-confidence** | Tránh ép khách gọi điện. Để AI trả lời FAQ tiện ích tức thời ngay trong phòng qua QR, giảm tải cho lễ tân. |
-| **E03** | Các dịch vụ/ tiện ích trong resort nằm rải rác nhiều nơi, người ở khó tìm  | [ev3.jpg](ev3.jpg)<br>![ev3](ev3.jpg) | **Failure / Correction** | Gom yêu cầu dịch vụ về một hội thoại. AI draft yêu cầu, chuyển bộ phận phù hợp; khách xác nhận bằng nút bấm. |
-| **E04** |Quy trình đặt thông qua app quá phức tạp, phải chọn từng mục sau đó mới hiển thị ra các thông tin  | Thông qua trải nghiệm/ Kiểm chứng app | **Failure / Correction** | Gom yêu cầu dịch vụ về một hội thoại. AI draft yêu cầu, chuyển bộ phận phù hợp; khách xác nhận bằng nút bấm. |
+| Evidence ID | Observation | Screenshot/link |
+|---|---|---|
+| **E01** | Khách phản ánh tiêu cực vì không có chatbot hỗ trợ | [noChatbot.jpg](noChatbot.jpg)<br>![E01](noChatbot.jpg) |
+| **E02** | Khách gặp vấn đề thông qua app nhưng lại không có CSKH để liên hệ | [ev2_1.jpg](ev2_1.jpg)<br>![ev2_1](ev2_1.jpg) |
+| **E03** | Các dịch vụ/ tiện ích trong resort nằm rải rác nhiều nơi, người ở khó tìm  | [ev3.jpg](ev3.jpg)<br>![ev3](ev3.jpg) |
+| **E04** |Quy trình đặt thông qua app quá phức tạp, phải chọn từng mục sau đó mới hiển thị ra các thông tin  | Thông qua trải nghiệm/ Kiểm chứng app |
 
 ## 2. Lát cắt để build
 
@@ -49,16 +49,23 @@ Lý do: FAQ và amenity rủi ro thấp, đáp án rõ → tự xử lý giảm 
 
 Một tính năng AI không chỉ có đường thuận. Nhóm cần thiết kế cho cả bốn tình huống mà người dùng có thể gặp:
 
-| Đường đi | Câu hỏi | Ví dụ cách xử lý |
-|----------|---------|------------------|
-| **Đường thuận** | AI đúng và tự tin — người dùng thấy gì? | Gợi ý hiện rõ, chấp nhận chỉ bằng một thao tác |
-| **Khi AI không chắc** | AI lưỡng lự — có hỏi lại không? | Đưa ra vài lựa chọn hoặc xin thêm thông tin |
-| **Khi AI sai** | Kết quả sai — người dùng gỡ ra thế nào? | Cho hoàn tác, sửa trực tiếp, hoặc chuyển sang người thật |
-| **Khi người dùng sửa** | Người dùng chỉnh lại — dữ liệu đi về đâu? | Lưu lại để cập nhật quy tắc hoặc tập kiểm thử |
+| Đường đi              | Prototype thể hiện                                                                                   |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Đường thuận           | QR Phòng 1208, 9:30 → chào theo phòng, 3 việc nhanh → khách chọn "giờ buffet & hồ bơi" → AI trả lời ngay từ nguồn thống nhất |
+| Khi AI không chắc     | QR không gắn phòng / câu mơ hồ → hỏi lại: [Hỏi tiện ích] [Đặt dịch vụ] [Gặp lễ tân]                                          |
+| Khi AI sai / hết slot | Đặt spa 18:00 đã kín → "18:00 đã kín. Còn 16:30 hoặc 19:30" + [Chọn 16:30] [Chọn 19:30] [Chuyển lễ tân]                      |
+| Khi người dùng sửa    | [Chuyển lễ tân] hoặc "đổi phòng / hoàn tiền" → dừng tự xử lý, tóm tắt, escalate; ghi phản hồi vào profile phiên              |
+
 
 ## 6. Những kiểu lỗi đáng lo nhất
 
-Liệt kê một đến ba kiểu lỗi nguy hiểm nhất của sản phẩm. Với mỗi kiểu, nói rõ ba điều: lỗi thường xuất hiện khi nào (chẳng hạn đầu vào mơ hồ, câu hỏi ngoài phạm vi, dữ liệu thiếu, hay người dùng cố tình đánh lừa), nếu xảy ra thì ai chịu thiệt và nặng đến đâu, và prototype sẽ xử lý bằng cách nào — hỏi lại, hiện nguồn, để con người duyệt, cho hoàn tác, hay có sẵn phương án dự phòng.
+**Lỗi nguy hiểm nhất:** AI tự tin xác nhận thao tác tiền/chính sách (đổi/hủy, hoàn tiền, khiếu nại) như dịch vụ thường → khách hiểu nhầm đã hủy/hoàn → tranh chấp, mất niềm tin.
+
+| | Chi tiết |
+|---|----------|
+| **Khi nào xuất hiện** | Intent đổi/hủy, hoàn tiền, thanh toán, khiếu nại; đầu vào mơ hồ hoặc cố tình đánh lừa |
+| **Ai chịu thiệt** | Khách + resort (uy tín, tiền) |
+| **Prototype xử lý** | Danh sách intent rủi ro → KHÔNG tự xác nhận; tóm tắt + `[Chuyển lễ tân]` + "việc này do nhân viên xác nhận" + log |
 
 ## 7. Kế hoạch kiểm thử và bằng chứng demo
 
