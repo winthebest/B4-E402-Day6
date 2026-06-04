@@ -1,12 +1,3 @@
-# SPEC sản phẩm
-
-Ở Day 5, mỗi nhóm đã viết một bản SPEC nhẹ. Đến Day 6, nhóm hoàn thiện bản này cho đủ để bắt tay vào build và mang đi demo — vẫn ngắn gọn, nhưng đủ để bảo vệ được những quyết định sản phẩm của mình.
-
-Hãy hình dung SPEC như một lập luận, chứ không phải một danh sách tính năng. Nó cần trả lời rõ bốn câu hỏi: sản phẩm giải vấn đề gì và cho ai, AI tham gia quyết định điều gì, chuyện gì xảy ra khi AI trả lời sai, và những nhận định của nhóm dựa trên bằng chứng nào.
-
-Viết SPEC vào `spec/spec.md`, có thể kèm slide demo (`spec/demo-slides.pdf`).
-
----
 
 ## 1. Bằng chứng
 
@@ -119,15 +110,12 @@ Kiểm tra response JSON có trường `engine` (`gemini` | `guardrail` | `fallb
 
 ## 8. Phân công
 
-Nhóm **Day6-E402-A10** — WonderPath AI (SPEC) / prototype **StayMate**. Mỗi thành viên có phần việc và bằng chứng trong repo để tự giải thích khi demo.
+| Mã HV | Thành viên | Nhiệm vụ chính |
+|-------|------------|----------------|
+| 2A202600781 | **Phan Võ Trọng Tiển** | Prompt engineering & logic AI: system prompt, recommend prompt, grounding dữ liệu resort, QA & demo: SPEC, ảnh 4 paths, Backend API: `POST /api/chat`, guardrail, slot check, AI-first + fallback, tích hợp Gemini   |
+| 2A202600675 | **Nguyễn Bá Thành** | Giao diện Web App: chat card, quick reply, QR → phòng, hiển thị 4 paths trên UI Kiểm thử prompt & kịch bản: test case Vinpearl, map 4 paths, theo dõi `engine` / chất lượng phản hồi.| 
+| 2A202600642 | **Võ Tấn Trung** | Kịch bản & dữ liệu giả lập: cấu trúc JSON phòng, tiện ích, slot (kể cả case **18:00 full**), chính sách resort | 
+| 2A202600609 | **Đào Văn Tuân** |  QA & demo: SPEC, ảnh 4 paths, video/slide, kịch bản trình bày 10 phút | 
 
-| Mã HV | Thành viên | Nhiệm vụ chính | Bằng chứng đầu ra trong repo |
-|-------|------------|----------------|------------------------------|
-| 2A202600997 | **Nguyễn Huy Bảo** | Kịch bản & dữ liệu giả lập: cấu trúc JSON phòng, tiện ích, slot (kể cả case **18:00 full**), chính sách resort | [`codebase/StayMate/data/`](../codebase/StayMate/data/) — `rooms.json`, `slots.json`, `amenities_resort.json`, `policies.json`… |
-| 2A202600795 | **Nguyễn Văn Đoan** | Giao diện Web App: chat card, quick reply, QR → phòng, hiển thị 4 paths trên UI | [`codebase/StayMate/web/`](../codebase/StayMate/web/) — `index.html`, `app.js`, `styles.css`, `concierge.js` |
-| 2A202600718 | **Lê Duy Hùng** | Prompt engineering & logic AI: system prompt, recommend prompt, grounding dữ liệu resort | [`codebase/StayMate/server/gemini.js`](../codebase/StayMate/server/gemini.js) |
-| 2A202600807 | **Trần Hoàng Đạt** | Kiểm thử prompt & kịch bản: test case Vinpearl, map 4 paths, theo dõi `engine` / chất lượng phản hồi | [`test_cases_chatbot_du_lich_vinpearl.md`](../test_cases_chatbot_du_lich_vinpearl.md), hỗ trợ kịch bản §7.1 |
-| 2A202600563 | **Phạm Ngọc Vinh** | Backend API: `POST /api/chat`, guardrail, slot check, AI-first + fallback, tích hợp Gemini | [`codebase/StayMate/server/server.js`](../codebase/StayMate/server/server.js), `.env.example` |
-| 2A202600970 | **Tạ Duy Xuân** | QA & demo: SPEC §7, ảnh 4 paths, video/slide, kịch bản trình bày 10 phút | [`spec/README.md`](README.md) §7, [`spec/evidence/`](evidence/), `spec/spec.md`; video/slide (bổ sung khi có) |
 
-**Lưu ý nộp bài:** mỗi người ≥ 1 commit thực chất trên repo nhóm; đại diện nộp link **Day6-E402-A10** lên LMS trước **23:59 04/06/2026**.
+
