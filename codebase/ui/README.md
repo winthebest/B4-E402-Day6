@@ -32,7 +32,13 @@ $env:HF_EMBEDDING_MODEL="sentence-transformers/paraphrase-multilingual-MiniLM-L1
 ## 2. Chay app
 
 ```bash
-streamlit run app.py
+python app.py
+```
+
+Neu may khong bi chan `streamlit.exe`, co the chay cach quen thuoc:
+
+```bash
+python -m streamlit run app.py
 ```
 
 ## 3. Dua data vao
