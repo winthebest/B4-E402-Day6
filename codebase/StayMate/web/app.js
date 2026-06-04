@@ -33,15 +33,10 @@
   }
 
   function withEngine(div, engine) {
-    if (!engine || engine === "concierge") return;
+    if (!engine || engine === "concierge" || engine === "fallback") return;
     const e = document.createElement("span");
-    e.className = "engine" + (engine === "gemini" ? " gemini" : engine === "fallback" ? " fallback" : "");
-    const labels = {
-      gemini: "✨ Gemini AI",
-      guardrail: "Rule backup",
-      fallback: "Rule (offline)",
-      concierge: "Rule local",
-    };
+    e.className = "engine" + (engine === "gemini" ? " gemini" : "");
+    const labels = { gemini: "✨ Gemini AI", guardrail: "Rule backup" };
     e.textContent = labels[engine] || engine;
     div.appendChild(e);
   }
@@ -70,6 +65,7 @@
     scroll();
     await sleep(420);
     t.remove();
+    scroll(); // scroll lại sau khi bỏ typing bubble
   }
 
   function setQuicks(quicks) {
@@ -99,10 +95,24 @@
     withSources(div, res.sources);
     withEngine(div, res.engine);
     if (res.summary) {
-      const s = bubble(`Tóm tắt gửi lễ tân: “${res.summary}” — phòng ${ctx.room}`, "system");
+      const s = bubble(`Tóm tắt gửi lễ tân: "${res.summary}" — phòng ${ctx.room}`, "system");
       void s;
     }
-    setQuicks(res.quicks && res.quicks.length ? res.quicks : DEFAULT_QUICKS);
+
+    const rawQuicks = res.quicks && res.quicks.length ? res.quicks : DEFAULT_QUICKS;
+
+    // Chặn mọi nút confirm khi intent là book_dining và chưa có nhà hàng cụ thể.
+    // Backend (Gemini hoặc rule) có thể trả confirm:dining hoặc nút "Xác nhận" — đều bị chặn.
+    const isDiningPending = res.intent === "book_dining" && !res.restaurant;
+    const safeQuicks = rawQuicks.map((q) => {
+      const isConfirmLike =
+        q.action === "confirm:dining" ||
+        (isDiningPending && /^confirm:/.test(q.action)) ||
+        (isDiningPending && /xác nhận/i.test(q.label));
+      return isConfirmLike ? { label: "Chọn nhà hàng", action: "pick:dining" } : q;
+    });
+
+    setQuicks(safeQuicks);
   }
 
   function userSays(text) {
@@ -132,7 +142,7 @@
       try {
         res = await askBackend(text);
       } catch (_) {
-        backendOK = false; // server chỉ phục vụ static → dùng engine local
+        backendOK = false;
       }
     }
     if (!res) {
@@ -170,6 +180,7 @@
       });
       return;
     }
+
     if (action === "menu:service") {
       await botRespond({
         type: "clarify",
@@ -183,7 +194,6 @@
       return;
     }
 
-    // book:<key>:<HH>:<MM>  hoặc confirm:*
     if (action.startsWith("book:")) {
       const [, key, hh, mm] = action.split(":");
       const time = mm !== undefined ? `${hh}:${mm}` : hh;
@@ -204,7 +214,34 @@
       return;
     }
 
+    // pick:dining hoặc confirm:dining (không có nhà hàng) → hỏi chọn nhà hàng
+    if (action === "pick:dining" || action === "confirm:dining") {
+      const restaurants = (Concierge.DB.restaurants?.restaurants || []).slice(0, 5);
+      const quicks = restaurants.length
+        ? restaurants.map((r) => ({ label: r.name, action: `confirm:dining:${r.name}` }))
+        : [{ label: "Để lễ tân tư vấn", action: "human" }];
+      await botRespond({
+        type: "clarify",
+        text: "Anh/chị muốn đặt bàn tại nhà hàng nào ạ?",
+        quicks: [...quicks, { label: "Để lễ tân tư vấn", action: "human" }],
+      });
+      return;
+    }
+
     if (action.startsWith("confirm:")) {
+      const confirmKey = action.slice("confirm:".length);
+
+      // confirm:dining:<tên> — đã chọn nhà hàng cụ thể
+      if (confirmKey.startsWith("dining:")) {
+        const restaurant = confirmKey.slice("dining:".length);
+        userSays(`Chọn ${restaurant}`);
+        await typing();
+        bubble(`Đã ghi nhận đặt bàn tại ${restaurant} cho phòng ${ctx.room}. Bộ phận sẽ xác nhận lại với anh/chị trong ít phút ạ.`, "bot");
+        setQuicks(DEFAULT_QUICKS);
+        return;
+      }
+
+      // Các confirm khác (housekeeping, spa...)
       userSays("Xác nhận");
       await typing();
       bubble(`Đã gửi yêu cầu cho phòng ${ctx.room}. Bộ phận sẽ xử lý trong ít phút ạ.`, "bot");
@@ -222,11 +259,22 @@
   }
 
   function greet() {
-    const r = ctx.room ? `phòng ${ctx.room}` : "quý khách";
     const hour = new Date().getHours();
     const part = hour < 11 ? "buổi sáng" : hour < 18 ? "buổi chiều" : "buổi tối";
+    const g = ctx.guest || "family";
+
+    const guestGreet = {
+      couple:
+        `Chào anh/chị phòng ${ctx.room || "quý khách"}! 🌺 Chúc anh/chị ${part} thật dễ chịu tại Vinpearl Phú Quốc. Em là StayMate — concierge riêng của phòng mình. Anh/chị cần em hỗ trợ gì không ạ?`,
+      family_with_kids:
+        `Xin chào gia đình phòng ${ctx.room || "quý khách"}! 👋 Chúc cả nhà ${part} vui vẻ nhé. Em là StayMate, luôn sẵn sàng hỗ trợ từ hỏi tiện ích đến đặt dịch vụ cho cả nhà ạ!`,
+      family:
+        `Chào gia đình phòng ${ctx.room || "quý khách"}! 👋 Chúc anh/chị ${part} thoải mái. Em là StayMate — anh/chị cần hỏi gì về resort hay đặt dịch vụ cứ nhắn em nhé!`,
+    };
+
     bubble(
-      `Chào ${r}! 👋 StayMate xin chào ${part}. Em có thể giúp gì cho anh/chị ạ?`,
+      guestGreet[g] ||
+      `Chào phòng ${ctx.room || "quý khách"}! 👋 Chúc anh/chị ${part} vui vẻ. Em là StayMate — trợ lý concierge của phòng mình. Em có thể giúp gì cho anh/chị ạ?`,
       "bot"
     );
     setQuicks(DEFAULT_QUICKS);
